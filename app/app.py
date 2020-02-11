@@ -52,25 +52,28 @@ def Parameter(filename):
         PValue = form.PValue.data
         Fold = form.Fold.data
         Coeff = form.Coefficience.data
+
+        Sub = form.Sub.data
         if 0 <= PValue <= 0.05:
-            if 0 <= Coeff <= 100:
-                return redirect(url_for('Visualisation', filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff ))
+            if 0 <= Coeff <= 3:
+                return redirect(url_for('Visualisation', filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff, Sub=Sub ))
             else:
-                flash("Coefficience of Variance Threshold must be a whole number between 0 to 100", "danger")
+                flash("Coefficience of Variance Threshold must be a whole number between 0 to 3", "danger")
+
 
         else:
             flash("P-Value Threshold must be between 0 - 0.05", "danger")
     return render_template('data_parameter.html', form=form)
 
 
-@app.route("/upload/Parameters/<filename>/<PValue>/<Coeff>/<Fold>")
-@app.route("/upload/Parameters/<filename>/<PValue>/<Fold>/<Coeff>")
-def Visualisation(filename, PValue, Fold, Coeff):
-    calculations_df,df_final2,df_final3=data_analysis(filename, Coeff)
-    VolcanoPlot1 = VolcanoPlot_Sub(df_final2, Coeff, PValue,Fold)
-    VolcanoPlot2 = VolcanoPlot(df_final3, Coeff, PValue, Fold)
-    Enrichment = EnrichmentPlot(calculations_df, Coeff, PValue, Fold)
-    return render_template('data_analysis_results.html',filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff, VolcanoPlot1=VolcanoPlot1, VolcanoPlot2=VolcanoPlot2, Enrichment=Enrichment)
+@app.route("/upload/Parameters/<filename>/<PValue>/<Fold>/<Coeff>/<Sub>")
+def Visualisation(filename, PValue, Fold, Coeff, Sub):
+    calculations_df,df_final2,df_final3=data_analysis(filename, PValue, Coeff, Sub)
+    VolcanoPlot1 = VolcanoPlot_Sub(df_final2,PValue, Fold, Coeff)
+    VolcanoPlot2 = VolcanoPlot(df_final3, PValue, Fold,Coeff)
+    Enrichment = EnrichmentPlot(calculations_df, PValue, Fold, Coeff, Sub)
+    Calculations= df2_html(calculations_df)
+    return render_template('data_analysis_results.html',filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff, Sub=Sub, VolcanoPlot1=VolcanoPlot1, VolcanoPlot2=VolcanoPlot2, Enrichment=Enrichment,Calculations=Calculations)
 
 
 @app.route("/HumanKinases", methods = ['GET', 'POST'])

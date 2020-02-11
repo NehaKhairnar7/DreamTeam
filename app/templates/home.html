@@ -1,6 +1,62 @@
 {% extends "layout.html" %}
 {% block content %}
+
+	
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+.row {display: flex;}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+</style>
+
+
+
 <div class ="content-section">
-	<h1>Welcome to PhosphoView</h1>
-     <p> PhosphoView is a web application that can be used to explore background information about human protein kinases and the sites they phosphorylate. It is capable of calculating the level of activity of each human kinase from experimental datasets uploaded by the user. </p>
+
+	<legend class="border-bottom mb-4"><h1> Welcome to PhosphoView </h1></legend>
+     <p> PhosphoView is a web application that can be used to explore background information about human protein kinases . It is capable of calculating the level of activity of each human kinase from experimental datasets uploaded by the user. </p>
+
+<body>
+
+<div class="container ">
+
+<div class="row">
+  <div class="column">
+    <a href="/HumanKinases">
+    <img src="static\help_images\1-3dstructureo.jpg" alt="Avatar" style="width:190px">
+  </a>
+    <p> <i> We have 500+ Kinases including phosphorylation sites and phosphosites </i></p>
+  </div>
+  <div class="column">
+    <a href= "/Inhibitors">
+    <img src="static\help_images\Protein.png" alt="Avatar" style="width:240px">
+  </a>
+    <p> <i>We provide a comprehensive overview of 100+ Inhibitors </i></p>
+  </div>
+  <div class="column">
+   <a href="{{ url_for('Data_Upload') }}">
+<img border="4"  src="static\help_images\Analysis.png" style="width:270px">
+</a>
+   <p> <i>Upload your phosphoporteomics data and we provide our analysis </i></p>
+  </div>
+</div>
+
+
+
+    </div>
+    <div class="border-top pt-1">
+                            <small class="text-muted"> Need Guidance  ? <a class="ml-2" href="{{ url_for('Help') }}">Refer to our Help section</a>
+                             </small>
+    </div>
+</body>
+
+
+</div>
+
 {% endblock content %}

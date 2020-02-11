@@ -178,34 +178,7 @@ def Help():
 @app.route("/about")
 def about():
 
-    posts = [
-    {
-        'Name': 'Mohamed Golaid',
-        'Description': 'A Msc Bioinformatics student, who loves coding',
-    },
-    {
-        'Name': 'Han Ooi',
-        'Description': 'A highly masculine Msc Bioinformatics bro, who loves pumping iron and coding as well',
-    },
-
-    {
-        'Name': 'Sheridan',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-    {
-        'Name': 'Anastastia',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-
-    {
-        'Name': 'Alisha Angdembe',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-
-
-            ]
-
-    return render_template('about.html', posts=posts, title = " About")
+    return render_template('about.html', title = " About")
 
 
 

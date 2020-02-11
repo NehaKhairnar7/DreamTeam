@@ -13,11 +13,7 @@ import csv #loading csv package
 import pandas as pd #loading pandas package
 import re #loading regex package
 import numpy as np
-import statsmodels.api# as sm
-import statsmodels.formula.api #as smf
-from statsmodels.stats._knockoff import RegressionFDR
 import math
-import plotly.express as px
 from scipy.stats import norm
 from bokeh.models import Span
 from bokeh.resources import CDN
@@ -25,29 +21,25 @@ from bokeh.embed import file_html, components
 from bokeh.plotting import figure, ColumnDataSource, output_notebook, show, output_file
 from bokeh.models import HoverTool, WheelZoomTool, PanTool, BoxZoomTool, ResetTool, TapTool, SaveTool
 from bokeh.palettes import brewer
-from bokeh.models.widgets import DataTable, TableColumn
 from bokeh.layouts import row
 
-#FC=2
-#p_val=0.01
-#CV=100
 
 def data_analysis(filename, p_val, CV, Sub):
+    
     Sub=float(Sub)
     CV=float(CV)
-    #read in txt file
+ 
     #df_input_original = pd.read_csv(filename, sep='\t')
     df_input_original = pd.read_csv("instance/Data_Upload/"+ filename,  sep='\t')
-    
-    #There are 86 columns in the dataframe, but only 7 columns have values, the rest are empty
-    #Need to remove the empty columns
+   
     input_original_subset = df_input_original.iloc[:, 0:7]
+   
+    col_number =  input_original_subset.shape[1]
     
-    col_number=  input_original_subset.shape[1]
-
     if col_number == 5:
         input_original_subset["control_cv"] = 1
-        input_original_subset["condition_cv"] = 1        
+        input_original_subset["condition_cv"] = 1   
+    
         
     df_cols=["Substrate", "control_mean", "inhibitor_mean", "fold_change", "p_value", "ctrlCV", "treatCV" ]
 
@@ -72,11 +64,8 @@ def data_analysis(filename, p_val, CV, Sub):
     #Need to separate the phosphosite from the substrate in the first column into 2 separate columns
     input_original_subset[['Substrate','Phosphosite']] = input_original_subset.Substrate.str.split('\(|\)', expand=True).iloc[:,[0,1]]
 
-
- #   input_original_subset=input_original_subset.dropna()
-
-#print (NegLog10Kinase.head())
-#
+    
+    input_original_subset=input_original_subset.dropna(axis=1, how="all")
    
     #Take -log10 of the corrected p-value.
     uncorrected_p_values=input_original_subset.iloc[ :,4].astype(np.float64)
@@ -152,8 +141,6 @@ def data_analysis(filename, p_val, CV, Sub):
     calculations_df=calculations_df.reset_index(level=['kinase'])
     final_substrate=final_substrate.drop(['Kinase'], axis=1)
     
-    #user define CV value: Rows Above CV filtered out
-    
     return (calculations_df, final_substrate ,df_final3) #calculations_df)
 
 def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
@@ -167,6 +154,10 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
     final_substrate.loc[(final_substrate['Log2 Fold Change'] < FC_N) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'color' ] = "Red"   # downregulated
     final_substrate['color'].fillna('grey', inplace=True)
 
+
+    final_substrate.loc[(final_substrate['Log2 Fold Change'] > FC) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "More abundant in treatment"  # upregulated
+    final_substrate.loc[(final_substrate['Log2 Fold Change'] < FC_N) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "Less abundant in treatment"   # downregulated
+    final_substrate['regulation'].fillna('No change', inplace=True)
     output_notebook()
 
     category = 'Substrate'
@@ -183,13 +174,12 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
                                 ('p_value', '@{-Log10 Corrected P-Value}')])
 
     tools = [hover, WheelZoomTool(), PanTool(), BoxZoomTool(), ResetTool(), SaveTool()]
-    #p.figure.circle('x','y',color='color',legend='regulation',source=source)
+ 
     p = figure(tools=tools,title=title, plot_width=700,plot_height=400,toolbar_location='right',
            toolbar_sticky=False)
    
-    p.scatter(x = 'Log2 Fold Change', y = '-Log10 Corrected P-Value',source=source,size=10,color='color')
+    p.circle(x = 'Log2 Fold Change', y = '-Log10 Corrected P-Value',source=source,size=10,color='color', legend='regulation')
 
-    #types= ['Upregulated', 'Downregulated']
     p_sig = Span(location=PV,dimension='width', line_color='black',line_dash='dashed', line_width=3)
     fold_sig_over=Span(location=FC,dimension='height', line_color='black',line_dash='dashed', line_width=3)
     fold_sig_under=Span(location=FC_N,dimension='height', line_color='black',line_dash='dashed', line_width=3)
@@ -198,14 +188,13 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
     p.add_layout(fold_sig_over)   
     p.add_layout(fold_sig_under)   
     
-   # p.xaxis.axis_label = "Log2 Fold Change"
-   # p.yaxis.axis_label = "-Log10 Corrected P-Value"
+    p.xaxis.axis_label = "Log2 Fold Change"
+    p.yaxis.axis_label = "-Log10 Corrected P-Value"
         
     html=file_html(p, CDN, "Volcano Plot of Substrates" )
 
     return html
 
-#VolcanoPlot_Sub("mux.tsv", 100, 0.05, 2)
 
 def VolcanoPlot(df_final3, p_val, FC, CV):
    # calculations_df, final_substrate, df_final3=data_analysis(filename, CV)
@@ -217,14 +206,14 @@ def VolcanoPlot(df_final3, p_val, FC, CV):
     df_final3.loc[(df_final3['Log2 Fold Change'] < FC_N) & (df_final3['-Log10 Corrected P-Value'] > PV), 'color' ] = "Red"   # downregulated
     df_final3['color'].fillna('grey', inplace=True)
 
-    output_notebook()
+    df_final3.loc[(df_final3['Log2 Fold Change'] > FC) & (df_final3['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "Upregulated"  # upregulated
+    df_final3.loc[(df_final3['Log2 Fold Change'] < FC_N) & (df_final3['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "Downregulated"   # downregulated
+    df_final3['regulation'].fillna('No Change', inplace=True)
 
     category = 'Substrate'
 
     category_items =df_final3[category].unique()
     title="Kinase Activity Summary"
-
-    #title = Inhibitor + " :Data with identified kinases"
 
     source = ColumnDataSource(df_final3)
 
@@ -239,7 +228,7 @@ def VolcanoPlot(df_final3, p_val, FC, CV):
     p = figure(tools=tools,title=title,plot_width=700,plot_height=400,toolbar_location='right',
            toolbar_sticky=False)
    
-    p.scatter(x = 'Log2 Fold Change', y = '-Log10 Corrected P-Value',source=source,size=10,color='color')
+    p.circle(x = 'Log2 Fold Change', y = '-Log10 Corrected P-Value',source=source,size=10,color='color', legend= 'regulation')
    
     p_sig = Span(location=PV,dimension='width', line_color='black',line_dash='dashed', line_width=3)
     fold_sig_over=Span(location=FC,dimension='height', line_color='black',line_dash='dashed', line_width=3)
@@ -257,7 +246,7 @@ def VolcanoPlot(df_final3, p_val, FC, CV):
     return html
 
 def EnrichmentPlot(calculations_df, p_val, FC, CV, Sub):
-    #calculations_df, df_final2, df_final3=data_analysis(filename,CV)
+ 
     
     reduc_calculations_df=calculations_df[calculations_df['m']>= float(Sub)]
     reduc_calculations_df=reduc_calculations_df.sort_values(by='Z_Scores')

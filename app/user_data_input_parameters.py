@@ -5,27 +5,18 @@ Created on Fri Jan 31 18:37:16 2020
 @author: sheri
 """
 
-from Database.kinase_functions import *
-from sqlalchemy import create_engine, or_, and_
-from sqlalchemy.orm import sessionmaker
-from pprint import pprint
-import csv #loading csv package
-import pandas as pd #loading pandas package
-import re #loading regex package
-import numpy as np
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
 import math
-import plotly.express as px
-from scipy.stats import norm
+
+import numpy as np
+import pandas as pd  # loading pandas package
+from Database.kinase_functions import *
+from bokeh.embed import file_html
+from bokeh.models import HoverTool, WheelZoomTool, PanTool, BoxZoomTool, ResetTool, SaveTool
 from bokeh.models import Span
+from bokeh.plotting import figure, ColumnDataSource, output_notebook
 from bokeh.resources import CDN
-from bokeh.embed import file_html, components
-from bokeh.plotting import figure, ColumnDataSource, output_notebook, show, output_file
-from bokeh.models import HoverTool, WheelZoomTool, PanTool, BoxZoomTool, ResetTool, TapTool, SaveTool
-from bokeh.palettes import brewer
-from bokeh.models.widgets import DataTable, TableColumn
-from bokeh.layouts import row
+from scipy.stats import norm
+
 
 #FC=2
 #p_val=0.01
@@ -35,7 +26,7 @@ def data_analysis(filename, CV):
     CV=(int(CV)/100)
     #read in txt file
     #df_input_original = pd.read_csv(filename, sep='\t')
-    df_input_original = pd.read_csv("../app/instance/Data_Upload/"+ filename,  sep='\t')
+    df_input_original = pd.read_csv("instance/Data_Upload/"+ filename,  sep='\t')
     
     #There are 86 columns in the dataframe, but only 7 columns have values, the rest are empty
     #Need to remove the empty columns

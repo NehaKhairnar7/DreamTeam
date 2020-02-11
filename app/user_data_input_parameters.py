@@ -9,19 +9,17 @@ from Database.kinase_functions import *
 from sqlalchemy import create_engine, or_, and_
 from sqlalchemy.orm import sessionmaker
 from pprint import pprint
-import csv #loading csv package
-import pandas as pd #loading pandas package
-import re #loading regex package
+import csv 
+import pandas as pd 
+import re
 import numpy as np
 import math
 from scipy.stats import norm
 from bokeh.models import Span
 from bokeh.resources import CDN
 from bokeh.embed import file_html, components
-from bokeh.plotting import figure, ColumnDataSource, output_notebook, show, output_file
+from bokeh.plotting import figure, ColumnDataSource, show, output_file
 from bokeh.models import HoverTool, WheelZoomTool, PanTool, BoxZoomTool, ResetTool, TapTool, SaveTool
-from bokeh.palettes import brewer
-from bokeh.layouts import row
 
 
 def data_analysis(filename, p_val, CV, Sub):
@@ -37,8 +35,8 @@ def data_analysis(filename, p_val, CV, Sub):
     col_number =  input_original_subset.shape[1]
     
     if col_number == 5:
-        input_original_subset["control_cv"] = 1
-        input_original_subset["condition_cv"] = 1   
+        input_original_subset["control_cv"] = 0
+        input_original_subset["condition_cv"] = 0  
     
         
     df_cols=["Substrate", "control_mean", "inhibitor_mean", "fold_change", "p_value", "ctrlCV", "treatCV" ]
@@ -132,19 +130,16 @@ def data_analysis(filename, p_val, CV, Sub):
     p_means=[]
     for i in Z_Scores:
         p_means.append(norm.sf(abs(i)))
-
-    enrichment=mS/mP
     
-    calculations_dict={'mS': mS, 'mP':mP, 'm':m, 'Delta':delta, 'Z_Scores':Z_Scores,"P_value":p_means, "Enrichment":enrichment}
+    calculations_dict={'mS': mS, 'mP':mP, 'm':m, 'Delta':delta, 'Z_Scores':Z_Scores,"P_value":p_means}
 
     calculations_df=pd.DataFrame(calculations_dict)
     calculations_df=calculations_df.reset_index(level=['kinase'])
     final_substrate=final_substrate.drop(['Kinase'], axis=1)
     
-    return (calculations_df, final_substrate ,df_final3) #calculations_df)
+    return (calculations_df, final_substrate ,df_final3) 
 
 def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
-    #calculations_df, final_substrate, df_final3=data_analysis(filename, CV)
     
     FC=float(FC)
     FC_N = -(float(FC))
@@ -158,7 +153,6 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
     final_substrate.loc[(final_substrate['Log2 Fold Change'] > FC) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "More abundant in treatment"  # upregulated
     final_substrate.loc[(final_substrate['Log2 Fold Change'] < FC_N) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'regulation' ] = "Less abundant in treatment"   # downregulated
     final_substrate['regulation'].fillna('No change', inplace=True)
-    output_notebook()
 
     category = 'Substrate'
 
@@ -249,28 +243,28 @@ def EnrichmentPlot(calculations_df, p_val, FC, CV, Sub):
  
     
     reduc_calculations_df=calculations_df[calculations_df['m']>= float(Sub)]
-    reduc_calculations_df=reduc_calculations_df.sort_values(by='Enrichment')
+    reduc_calculations_df=reduc_calculations_df.sort_values(by='Z_Scores')
 
     reduc_calculations_df.loc[(reduc_calculations_df['P_value'] < float(p_val)), 'color'] = "Orange"  # significance 0.05# significance 0.01
     reduc_calculations_df.loc[(reduc_calculations_df['P_value'] > float(p_val)), 'color' ] = "Black"
 
     kinase=reduc_calculations_df['kinase']
 
-    enrichment=reduc_calculations_df['Enrichment']
+    z_score=reduc_calculations_df['Z_Scores']
     source = ColumnDataSource(reduc_calculations_df)
 
-    hover = HoverTool(tooltips=[('Enrichment','@Enrichment'),
+    hover = HoverTool(tooltips=[('Z-Score','@Z_Scores'),
                                 ('Number of Substrates', '@m'),
                                 ('P-value', '@P_value'),
                                 ('Kinase', '@kinase')])
 
     tools = [hover, WheelZoomTool(), PanTool(), BoxZoomTool(), ResetTool(), SaveTool()]
-    p = figure(tools=tools, y_range=kinase, x_range=((enrichment.min()-5), (enrichment.max()+5)), plot_width=600, plot_height=800, toolbar_location=None,
+    p = figure(tools=tools, y_range=kinase, x_range=((z_score.min()-5), (z_score.max()+5)), plot_width=600, plot_height=800, toolbar_location=None,
            title="Kinase Substrate Enrichment",)
-    p.hbar(y="kinase", left=0, right='Enrichment', height=0.3, color= 'color', source=source)
+    p.hbar(y="kinase", left=0, right='Z_Scores', height=0.3, color= 'color', source=source)
 
     p.ygrid.grid_line_color = None
-    p.xaxis.axis_label = "Enrichment(mS/mP)"
+    p.xaxis.axis_label = "Z Score"
     p.yaxis.axis_label = "Kinase"
     p.outline_line_color = None
 

@@ -249,28 +249,28 @@ def EnrichmentPlot(calculations_df, p_val, FC, CV, Sub):
  
     
     reduc_calculations_df=calculations_df[calculations_df['m']>= float(Sub)]
-    reduc_calculations_df=reduc_calculations_df.sort_values(by='Z_Scores')
+    reduc_calculations_df=reduc_calculations_df.sort_values(by='Enrichment')
 
     reduc_calculations_df.loc[(reduc_calculations_df['P_value'] < float(p_val)), 'color'] = "Orange"  # significance 0.05# significance 0.01
     reduc_calculations_df.loc[(reduc_calculations_df['P_value'] > float(p_val)), 'color' ] = "Black"
 
     kinase=reduc_calculations_df['kinase']
 
-    enrichment=reduc_calculations_df['Z_Scores']
+    enrichment=reduc_calculations_df['Enrichment']
     source = ColumnDataSource(reduc_calculations_df)
 
-    hover = HoverTool(tooltips=[('Z-Score)','@Z_Scores'),
+    hover = HoverTool(tooltips=[('Enrichment','@Enrichment'),
                                 ('Number of Substrates', '@m'),
                                 ('P-value', '@P_value'),
-                                ('Kinase', 'kinase')])
+                                ('Kinase', '@kinase')])
 
     tools = [hover, WheelZoomTool(), PanTool(), BoxZoomTool(), ResetTool(), SaveTool()]
     p = figure(tools=tools, y_range=kinase, x_range=((enrichment.min()-5), (enrichment.max()+5)), plot_width=600, plot_height=800, toolbar_location=None,
            title="Kinase Substrate Enrichment",)
-    p.hbar(y="kinase", left=0, right='Z_Scores', height=0.3, color= 'color', source=source)
+    p.hbar(y="kinase", left=0, right='Enrichment', height=0.3, color= 'color', source=source)
 
     p.ygrid.grid_line_color = None
-    p.xaxis.axis_label = "Z-Score"
+    p.xaxis.axis_label = "Enrichment(mS/mP)"
     p.yaxis.axis_label = "Kinase"
     p.outline_line_color = None
 

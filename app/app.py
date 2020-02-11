@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from werkzeug.utils import secure_filename
@@ -8,7 +9,7 @@ from user_data_input_parameters import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '11d5c86229d773022cb61679343f8232'
-
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 @app.route("/")
 @app.route("/home")

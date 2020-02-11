@@ -37,7 +37,7 @@ def data_analysis(filename, p_val, CV, Sub):
     CV=float(CV)
     #read in txt file
     #df_input_original = pd.read_csv(filename, sep='\t')
-    df_input_original = pd.read_csv("../app/instance/Data_Upload/"+ filename,  sep='\t')
+    df_input_original = pd.read_csv("instance/Data_Upload/"+ filename,  sep='\t')
     
     #There are 86 columns in the dataframe, but only 7 columns have values, the rest are empty
     #Need to remove the empty columns
@@ -61,7 +61,7 @@ def data_analysis(filename, p_val, CV, Sub):
     met_regex1 = r"\([M]\d+\)" #Use Regex to find "(M and any number of digits)"
 
 
-    input_original_subset=(input_original_subset[~input_original_subset.Substrate.str.contains(met_regex1)].copy()) #d1: rows with (Mddd) removed....copy() to remove conflict    
+    input_original_subset=(input_original_subset[~input_original_subset.Substrate.str.contains(met_regex1)].copy()) #d1: rows with (Mddd) removed....copy() to remove conflict
     #Make columns 2-7 type float instead of string
 
     input_original_subset['ctrlCV'] = input_original_subset['ctrlCV'].replace(np.nan, 3)
@@ -143,7 +143,7 @@ def data_analysis(filename, p_val, CV, Sub):
     p_means=[]
     for i in Z_Scores:
         p_means.append(norm.sf(abs(i)))
-        
+
     enrichment=mS/mP
     
     calculations_dict={'mS': mS, 'mP':mP, 'm':m, 'Delta':delta, 'Z_Scores':Z_Scores,"P_value":p_means, "Enrichment":enrichment}
@@ -165,7 +165,7 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
 
     final_substrate.loc[(final_substrate['Log2 Fold Change'] > FC) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'color' ] = "Green"  # upregulated
     final_substrate.loc[(final_substrate['Log2 Fold Change'] < FC_N) & (final_substrate['-Log10 Corrected P-Value'] > PV), 'color' ] = "Red"   # downregulated
-    final_substrate['color'].fillna('grey', inplace=True)  
+    final_substrate['color'].fillna('grey', inplace=True)
 
     output_notebook()
 
@@ -193,7 +193,7 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
     p_sig = Span(location=PV,dimension='width', line_color='black',line_dash='dashed', line_width=3)
     fold_sig_over=Span(location=FC,dimension='height', line_color='black',line_dash='dashed', line_width=3)
     fold_sig_under=Span(location=FC_N,dimension='height', line_color='black',line_dash='dashed', line_width=3)
-    
+
     p.add_layout(p_sig)   
     p.add_layout(fold_sig_over)   
     p.add_layout(fold_sig_under)   

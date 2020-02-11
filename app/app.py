@@ -137,7 +137,7 @@ def Phosphosites():
             kar_input = Phospho_form.karyotype.data
             kar_inputs = kar_input.replace(" ", "")
             if kar_inputs:
-                flash('subitted: '+ chr_number + ','+ kar_inputs, 'info')
+                flash('Submitted Chromosome: '+ chr_number + ' and Karyotype '+ kar_inputs, 'info')
                 return redirect(url_for('results_phosphosite2', chr_number=chr_number,kar_inputs=kar_inputs ))
 
     return render_template('Phosphosite.html', title='Phosphosite Search', Substrate_form=Substrate_form, Phospho_form=Phospho_form)

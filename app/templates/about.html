@@ -1,9 +1,169 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class ="content-section">
-     {% for post in posts%}
 
-	       <h1>{{post.Name}}</h1>
-	       <p>{{post.Description}}</p>
-	    {% endfor %}
-{% endblock content %}
+
+
+
+
+<head>
+	<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+</style>
+
+
+</head>
+<body>
+
+
+<div class="content-section"> 
+
+<legend class="border-bottom mb-4"><h1> Meet the Team  </h1></legend> 
+<p> This Web application was developed by Team PhosphoView of Queen Mary University of London for the purposes of a software development group project (MSc Bioinformatics ). This application was developed at the School of Biological Sciences and Chemistry under the indispensable supervision of <a href="https://bezzlab.github.io/">Professor Conrad Bessant</a> and <a href="http://www.eecs.qmul.ac.uk/~fabri/">Dr Fabrizio Smeraldi.</a></p>
+	
+
+<br>
+
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="static\help_images\img_avatar.png" alt="Jane" style="width:100%">
+      <div class="container">
+        <h2>Han</h2>
+        <p class="title">Database Manager</p>
+        <p>A Msc Bioinformatics student, who loves Databases.</p>
+ 
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="static\help_images\img_avatar2.png" alt="Jane" style="width:100%">
+      <div class="container">
+        <h2>Sheridan</h2>
+        <p class="title">lorem ipsum ipsum lorem</p>
+        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+ 
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="static\help_images\img_avatar5.png" alt="Jane" style="width:100%">
+      <div class="container">
+        <h2>Alisha</h2>
+        <p class="title">lorem ipsum ipsum lorem</p>
+        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+ 
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="static\help_images\img_avatar3.png" alt="Mike" style="width:100%">
+      <div class="container">
+        <h2>Anastastia</h2>
+        <p class="title">lorem ipsum ipsum lorem</p>
+        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+
+      </div>
+    </div>
+
+
+
+  
+  </div>
+   <div class="column">
+    <div class="card">
+      <img src="static\help_images\img_avatar4.png" alt="Mike" style="width:100%">
+      <div class="container">
+        <h2>Mohamed</h2>
+        <p class="title">lorem ipsum ipsum lorem</p>
+        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+      </div>
+    </div>
+  </div>
+
+    </div>
+
+  <div class="border-top pt-1">
+                            <large class="text-muted"> Want a Comprehensive Overview ? <a class="ml-2" href="{{ url_for('Help') }}">Download our Documentation </a> 
+                             </large>
+
+                             <!-- Place this tag where you want the button to render. -->
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/MO105/DreamTeam" data-size="large" aria-label="Follow @PhosphoView on GitHub">Follow @PhosphoView</a>
+    </div>
+
+</div>
+
+</div>
+
+</body>
+
+
+{% endblock content %}}
+
+
+
+

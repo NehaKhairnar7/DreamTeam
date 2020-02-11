@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
 <div class ="content-section">
       <!-- download button -->
-      <button class="btn float-right" style="width:25%" onclick="exportTableToCSV('Inhibitors.csv')"><i class="fa fa-download"></i>Download</button>
+      <button class="btn btn-primary btn-sm button5 float-right" style="width:5%" onclick="exportTableToCSV('Inhibitors.csv')"><i class="fa fa-download" style="font-size:18px"></i></button>
 
 <!-- Email button -->
         <div id="share-buttons" class="float-right">
@@ -31,11 +33,12 @@ display: inline;
   background-color: DodgerBlue;
   border: none;
   color: white;
-  padding: 10px 10px;
+  padding: 9px 4px;
   cursor: pointer;
-  font-size: 15px;
-}
+  font-size: 8px;
+  display: inline;}
 
+.button5 {border-radius:60%;}
 /* Darker background on mouse-over */
 .btn:hover {
   background-color: RoyalBlue;
@@ -65,7 +68,6 @@ display: inline;
       <a href ="/{{item['gene_name']}}">{{item['gene_name']}}</a>  
         {% endfor %}</td>
      
- <P> </P>
   </tr>
   {% endfor %}
 
@@ -104,6 +106,8 @@ display: inline;
 </script>
 </table>
 
+
+<!-- Create downloadlink -->
 <script>
  function downloadCSV(csv, filename) {
                 var csvFile;

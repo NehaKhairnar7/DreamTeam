@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from werkzeug.utils import secure_filename
@@ -138,7 +137,7 @@ def Phosphosites():
             kar_input = Phospho_form.karyotype.data
             kar_inputs = kar_input.replace(" ", "")
             if kar_inputs:
-                flash('subitted: '+ chr_number + ','+ kar_inputs, 'info')
+                flash('Submitted Chromosome: '+ chr_number + ' and Karyotype '+ kar_inputs, 'info')
                 return redirect(url_for('results_phosphosite2', chr_number=chr_number,kar_inputs=kar_inputs ))
 
     return render_template('Phosphosite.html', title='Phosphosite Search', Substrate_form=Substrate_form, Phospho_form=Phospho_form)
@@ -179,37 +178,11 @@ def Help():
 @app.route("/about")
 def about():
 
-    posts = [
-    {
-        'Name': 'Mohamed Golaid',
-        'Description': 'A Msc Bioinformatics student, who loves coding',
-    },
-    {
-        'Name': 'Han Ooi',
-        'Description': 'A highly masculine Msc Bioinformatics bro, who loves pumping iron and coding as well',
-    },
-
-    {
-        'Name': 'Sheridan',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-    {
-        'Name': 'Anastastia',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-
-    {
-        'Name': 'Alisha Angdembe',
-        'Description': 'A Msc Bioinformatics student, who loves coding as well',
-    }, 
-
-
-            ]
-
-    return render_template('about.html', posts=posts, title = " About")
+    return render_template('about.html', title = " About")
 
 
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+

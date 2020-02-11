@@ -5,22 +5,9 @@
         <legend class="border-bottom mb-4">{{substrate_info["substrate_name"]}}</legend>
 
 <table class="table table-hover">
-      <tr>
-        <th scope="row">Substrate Protein Name</th>
-        <td>{{substrate_info["substrate_name"]}}</td>
       </tr>
       <th scope="row">Substrate Gene Name</th>
-        <td>{{substrate_info["substrate_gene_name"]}}</td>
-      </tr>
-      <th scope="row">Phosphosite</th>
-        <td>{% for dict_item in substrate_info['phosphosites'] %}
-                  {{dict_item['phosphosite']}} 
-                {% endfor %} </td>
-        </tr>         
-   <th scope="row">Neighbouring Sequences</th>
-        <td>{% for dict_item in substrate_info['phosphosites'] %}
-                  {{dict_item['neighbouring_sequences']}} 
-                {% endfor %} </td>
+        <td>{{substrate_info["substrate_gene_name"]}}</td>       
       </tr>
      <th scope="row">Genome Browser</th>
         <td><a  target="_blank" 
@@ -29,7 +16,32 @@
 	
     </table>
 
-                      
+   <table class="table table-hover">
+           <tr>
+            <th id="sub">Phosphosites</th>
+            <th id="phos" >Neighbouring Sequences </th>
+            <th >Karyotype Bands</th>
+            <th >Chromosomes</th>
+            <th >Kinases </th>
+           </tr>   
+           <tr>
+           </tr>
+          
+            
+            <tr>
+        
+        {% for dict_item in substrate_info['phosphosites'] %}   
+            <td headers="phos">{{dict_item['phosphosite']}}</td>
+            <td headers="chr">{{dict_item['neighbouring_sequences']}} </td>
+            <td headers="kar">{{dict_item['karyotype_band']}}</td>
+            <td headers="kar">{{dict_item['chromosome']}}</td>
+            <td headers="kar">{{", ".join(dict_item['kinases'])}}</td>
+            </tr>
+{% endfor %}
+          
+    </table>
+              
+
 
 
 
@@ -37,3 +49,5 @@
 
 
 {% endblock content %}
+
+

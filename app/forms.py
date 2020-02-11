@@ -28,8 +28,8 @@ class FileForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class Phosphosite(FlaskForm):
-	chromosome = SelectField('chromosome number', choices= [],  validators=[DataRequired()])
-	karyotype = SelectField('karyotypes', choices=[], validators=[DataRequired()])
+	chromosome = SelectField('Chromosome number', choices= [],  validators=[DataRequired()])
+	karyotype = SelectField('Karyotypes', choices=[], validators=[DataRequired()])
 	submit = SubmitField('Submit')
 
 

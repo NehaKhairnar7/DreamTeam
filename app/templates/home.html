@@ -33,23 +33,31 @@
 
 <div class="row">
   <div class="column">
-    <img src="static\help_images\1-3dstructureo.jpg" alt="Avatar" style="width:100px">
+    <img src="static\help_images\1-3dstructureo.jpg" alt="Avatar" style="width:190px">
     <p> <i> We have 500+ Kinases including phosphorylation sites and phosphosites </i></p>
   </div>
   <div class="column">
-    <img src="static\help_images\Protein.png" alt="Avatar" style="width:120px">
+    <img src="static\help_images\Protein.png" alt="Avatar" style="width:240px">
     <p> <i>We provide a comprehensive overview of 100+ Inhibitors </i></p>
   </div>
   <div class="column">
-   <img src="static\help_images\Analysis.png" alt="Avatar" style="width:140px">
+   <a href="{{ url_for('Data_Upload') }}">
+<img border="4"  src="static\help_images\Analysis.png" style="width:270px">
+</a>
    <p> <i>Upload your phosphoporteomics data and we provide our analysis </i></p>
   </div>
 </div>
+
+
+
+    </div>
+    <div class="border-top pt-1">
+                            <small class="text-muted"> Need Guidance  ? <a class="ml-2" href="{{ url_for('Help') }}">Refer to our Help section</a>
+                             </small>
+    </div>
 </body>
+
 
 </div>
 
-   <div class="border-top pt-1">
-                            <small class="text-muted"> Need Guidance  ? <a class="ml-2" href="{{ url_for('Help') }}">Refer to our Help section</a> 
-                             </small>
 {% endblock content %}

@@ -13,7 +13,7 @@ from .db_setup import s
 from .kinase_declarative import *  # please make sure kinase_declarative.py is in the same folder
 
 
-#Please refer to Database_query_II for more information
+#Please refer to Protocol IronFox MK I for more information
 #A list of functions is available on Database query II
 
 #Intermediate kinase results page
@@ -61,7 +61,7 @@ def get_gene_alias_protein_name(kinase_input):
 def get_gene_metadata_from_gene(kinase_str):
     """ (str) --> dict
     Takes in a gene name as a string then output a dictionary.
-    Raises error if wrong or invalid gene name is given.
+    Returns empty dictionary if there is no entry.
     >> get_gene_metadata_from_gene("MAPK1")
     {'gene_name': 'MAPK1', 
     'kinase_family': 'CMGC Ser/Thr protein kinase family',
@@ -70,7 +70,11 @@ def get_gene_metadata_from_gene(kinase_str):
     'uniprot_number': 'P28482'}
     """
     #query gene_name in KinaseGeneMeta for user input
-    kinase_obj = s.query(KinaseGeneMeta).filter(KinaseGeneMeta.gene_name==kinase_str).one()
+    kinase_obj = s.query(KinaseGeneMeta).filter(KinaseGeneMeta.gene_name==kinase_str).all()
+    if kinase_obj == []:
+        return {}
+    else:
+        kinase_obj=kinase_obj[-1]
     return kinase_obj.to_dict()
 
 #Function to return subcellular location of kinase

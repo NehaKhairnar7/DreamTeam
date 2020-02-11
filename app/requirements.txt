@@ -11,3 +11,4 @@ gunicorn==20.0.4
 Werkzeug==0.16.1
 statsmodels
 plotly
+Ipython

@@ -16,7 +16,10 @@
     <a class="nav-link" data-toggle="tab" href="#PS">Phosphosite</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#UP">File upload</a>
+    <a class="nav-link" data-toggle="tab" href="#UP">Data upload</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#OTH">Additional features</a>
   </li>
 </ul>
 
@@ -39,7 +42,7 @@
 
           <h3>Kinase Results</h3>
           <p>Selecting a kinase take you to the individual kinase information page.
-            <br/>Background information about the kinase is diplayed first. This shows information about:
+            Background information about the kinase is diplayed first. This shows information about:
             <ul>
               <li> Protein name</li>
               <li> Uniprot number</li>
@@ -69,9 +72,10 @@
         <tr>
           <h2>Inhibitor search</h2>
             <p> Inhibitor search page includes a table with all inhibitors.</p>
-
             <img src="static\help_images\Inhib1.png" width="500" height="200">
             <p>Typing in the search bar will condense the table to results which feature the query term only. </p>
+            <img src="static\help_images\Inhi_search2.5.5.png" width="500" height="200">
+
             <h3> Inhibitor Results</h3>
             <p>Clicking on chosen inhibitor name, you are taken to the individual inhibitor information page where you will find the following:
             <ul>
@@ -82,9 +86,12 @@
               <li>An image of the inhibitor</li>
               <li>Inhibitor aliases</li>
               <li>Target of the inhibitor(gene name and aliases)</li>
-
             </ul></p>
-            <img src="static\help_images\Inhib2.png" width="500" height="200">
+            <img src="static\help_images\Inhin2.5.png" width="500" height="200">
+            <p>To explore the chemble page for your inhibitor simply click on the chembl ID</p>
+            <img src="static\help_images\Inhi_chem_link.png" width="500" height="200">
+            <p>Alternatively, from the inhibitor table you can go directly to the information page of the kinase.</p>
+            <img src="static\help_images\Inhi_target_link.png" width="500" height="200">
         </tr>
     </table>
   </div>
@@ -99,7 +106,7 @@
                 <img src="static\help_images\PS_sub_search.png" width="500" height="200">
                 <h3>Phosphosite results</h3>
                 <img src="static\help_images\PS_result.png" width="500" height="200">
-                <p>Below this you willfind an embedded genome browser</p>
+                <p>Below this you will find an embedded genome browser</p>
                 <img src="static\help_images\GB.png" width="500" height="200">
            </tr>
     </table>
@@ -109,8 +116,59 @@
    <table class="table table-hover">
            <tr>
               <h2>Data upload Help</h2>
-                <p> Kinase activty calculator</p>
-                <img src="static\help_images\Data_upload_pg1.png" width="500" height="200">
+                <p> A file can be uploaded for analysis from the data upload page</p>
+                <img src="static\help_images\Upload1.png" width="500" height="200">
+                <p>File requirments:
+                  <ul>
+                    <li>Substrate: The gene or protein name of the protein (UniProtKB entry names and gene names accepted) and phosphorylation site. The phosphorylation site must include a residue type and the numeric location. For example, “1A24_HUMAN(S359)” or “AAAS(S495)”. </li>
+                    <li>Control Mean: The mean phosphopeptide MS1 Peak area in the untreated sample</li>
+                    <li>Inhibitor Mean: The mean phosphopeptide MS1 peak area in the treatment sample</li>
+                    <li>Fold Change: The control mean divided by the inhibitor mean.</li>
+                    <li>P-value: the statistical significance of the fold change</li>
+                  </ul></p>
+                  <p>The file can also have 2 extra columns for coefficients of variance for replicates in the control and treated samples, in the following order:</p>
+                  <ul>
+                    <li> Control CV</li>
+                    <li>Inhibitor CV</li>
+                  </ul></p>
+                  <p>If there are more than 7 columns in the file, only the first 7 columns will be taken. Therefore, if data for more than one inhibitor is present in the dataset, the analysis will be carried out for the first inhibitor only. If only the 5 compulsory columns in the dataset are present, two extra columns coefficients of variance columns will be added. These coefficients will be set at 0, as it is assumed that if the columns are not included in the original file, then the coefficients of variance will be ignored for the purposes of the data analysis.</p>
+                <p>After selecting a file and pressing upload, you will be informed whether the upload has been successful.</p>
+                <img src="static\help_images\Data_file_up1.png" width="500" height="200">
+                <p>After a file is successfully uploaded there is an option to define parameters. </p>
+                <p>P-Value Threshold - The significance level threshold for the visualisations</p>
+                <p> Coefficient of variance threshold - Filter by coefficients of variance of both treatment and control. Coefficients of variance usually fall between 0 and 2, with a CV<1 being considered low variance, and a CV>1 being considered high variance. As most CVs will fall between these values, the maximum CV the user can choose is 3.</p>
+                <p>Fold change significance threshold - The fold change threshold for significance </p>
+                <p>Minimum number of substrates for enrichment visualisation - The minimum number of substrates phosphorylated by a particular kinase.</p>
+                <img src="static\help_images\Data_file_par.png" width="400" height="200">
+                <h2>Data analysis</h2>
+                <p>The kinase substrate enrichment analysis(KSEA) is detailed in the applications documentation:<a class="github-button" href="https://github.com/MO105/DreamTeam" data-size="large" aria-label="Follow @PhosphoView on GitHub">Follow @PhosphoView</a>
+                </p>
+                <h2>Data Upload Results</h2>
+                <h5>Summary of Proteins in Sample</h5>
+                <p>The first graph produced shows all the data points in the sample after the empty rows and substrates without valid phosphosites are sorted out of the data set. Data points shown in green are significantly more abundant in the treatment sample compared to the control.  On the other hand, substrates with a lower abundance in the sample compared to the control are shown in red.</p>
+                <img src="static\help_images\Result_graph1.png" width="400" height="200">
+                <h5>Kinase Activity Summary</h5>
+                <p>In the second graph, each data point corresponds to a kinase and the corresponding substrate. Data points coloured green are significantly upregulated in the treatment sample compared to the control. Data points coloured red are significantly downregulated in the treatment sample compared to the control.</p>
+                <img src="static\help_images\Result_graph2.png" width="400" height="200">
+                <h5>Enrichment Plot</h5>
+                <p>This shows the Ratio of Enrichment for each kinase found in the sample. Kinases that have a negative enrichment have a lower enrichment compared to the whole dataset, and therefore have a lower relative kinase activity compared to other kinases. Kinases that have a positive enrichment have a higher enrichment compared to the whole dataset, and therefore have a higher relative kinase activity compared to other kinases.</p>
+                <img src="static\help_images\Result_graph3.png" width="400" height="200">
+           </tr>
+    </table>
+  </div>
+
+  <div class="tab-pane container fade" id="OTH">
+   <table class="table table-hover">
+           <tr>
+              <h2>Download</h2>
+                <p>Down load current page to csv when this symbol is present:</p>
+                <img src="static\help_images\DWNL.png" width="100" height="100">
+              <h2>Email</h2>
+                <p>Email current page when this symbol is present:</p>
+                <img src="static\help_images\Email.png" width="100" height="100">
+              <h2>Copy</h2>
+                <p>Copy current cell in the table when this symbol is present:</p>
+                <img src="static\help_images\Copy1.png" width="800" height="100">
            </tr>
     </table>
   </div>

@@ -16,7 +16,10 @@
     <a class="nav-link" data-toggle="tab" href="#PS">Phosphosite</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#UP">File upload</a>
+    <a class="nav-link" data-toggle="tab" href="#UP">Data upload</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#OTH">Additional features</a>
   </li>
 </ul>
 
@@ -39,7 +42,7 @@
 
           <h3>Kinase Results</h3>
           <p>Selecting a kinase take you to the individual kinase information page.
-            <br/>Background information about the kinase is diplayed first. This shows information about:
+            Background information about the kinase is diplayed first. This shows information about:
             <ul>
               <li> Protein name</li>
               <li> Uniprot number</li>
@@ -69,9 +72,10 @@
         <tr>
           <h2>Inhibitor search</h2>
             <p> Inhibitor search page includes a table with all inhibitors.</p>
-
             <img src="static\help_images\Inhib1.png" width="500" height="200">
             <p>Typing in the search bar will condense the table to results which feature the query term only. </p>
+            <img src="static\help_images\Inhi_search2.5.5.png" width="500" height="200">
+
             <h3> Inhibitor Results</h3>
             <p>Clicking on chosen inhibitor name, you are taken to the individual inhibitor information page where you will find the following:
             <ul>
@@ -82,9 +86,12 @@
               <li>An image of the inhibitor</li>
               <li>Inhibitor aliases</li>
               <li>Target of the inhibitor(gene name and aliases)</li>
-
             </ul></p>
-            <img src="static\help_images\Inhib2.png" width="500" height="200">
+            <img src="static\help_images\Inhin2.5.png" width="500" height="200">
+            <p>To explore the chemble page for your inhibitor simply click on the chembl ID</p>
+            <img src="static\help_images\Inhi_chem_link.png" width="500" height="200">
+            <p>Alternatively, from the inhibitor table you can go directly to the information page of the kinase.</p>
+            <img src="static\help_images\Inhi_target_link.png" width="500" height="200">
         </tr>
     </table>
   </div>
@@ -99,7 +106,7 @@
                 <img src="static\help_images\PS_sub_search.png" width="500" height="200">
                 <h3>Phosphosite results</h3>
                 <img src="static\help_images\PS_result.png" width="500" height="200">
-                <p>Below this you willfind an embedded genome browser</p>
+                <p>Below this you will find an embedded genome browser</p>
                 <img src="static\help_images\GB.png" width="500" height="200">
            </tr>
     </table>
@@ -109,8 +116,37 @@
    <table class="table table-hover">
            <tr>
               <h2>Data upload Help</h2>
-                <p> Kinase activty calculator</p>
-                <img src="static\help_images\Data_upload_pg1.png" width="500" height="200">
+                <p> A file can be uploaded for analysis from the data upload page</p>
+                <img src="static\help_images\Upload1.png" width="500" height="200">
+                <p>File requirments:</p>
+                <p>After selecting a file and pressing upload you will be informed whether the upload has been successful.</p>
+                <img src="static\help_images\Data_file_up1.png" width="500" height="200">
+                <p>After a file is successfully uploaded there is an option to define parameters. </p>
+                <p>P-Value Threshold-</p>
+                <p> Coefficient of variance threshold-</p>
+                <p>Fold change significance threshold-</p>
+                <p>Minimum number of substrates for enrichment visualisation-</p>
+                <img src="static\help_images\Data_file_par.png" width="400" height="200">
+                <h2>Data Upload Results</h2>
+                <img src="static\help_images\Result_graph1.png" width="400" height="200">
+                <img src="static\help_images\Result_graph2.png" width="400" height="200">
+                <img src="static\help_images\Result_graph3.png" width="400" height="200">
+           </tr>
+    </table>
+  </div>
+
+  <div class="tab-pane container fade" id="OTH">
+   <table class="table table-hover">
+           <tr>
+              <h2>Download</h2>
+                <p>Down load current page to csv when this symbol is present:</p>
+                <img src="static\help_images\DWNL.png" width="100" height="100">
+              <h2>Email</h2>
+                <p>Email current page when this symbol is present:</p>
+                <img src="static\help_images\Email.png" width="100" height="100">
+              <h2>Copy</h2>
+                <p>Copy current cell in the table when this symbol is present:</p>
+                <img src="static\help_images\Copy1.png" width="800" height="100">
            </tr>
     </table>
   </div>

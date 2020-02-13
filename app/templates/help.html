@@ -5,6 +5,7 @@
   <legend class="border-bottom mb-4">Using Phosphoview </legend>
 
 <!-- Nav tabs -->
+
 <ul class="nav nav-tabs nav-fill">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#KIN">Kinase</a>
@@ -32,8 +33,8 @@
           <h2>Kinase search</h2>
           <p>Kinase search allows you to type your query kinase into the search bar. </p>
           <img src="static\help_images\Kinase1.png" width="500" height="200">
-          <p>This returns all kinase entries matching your query, taking into account
-              gene name and aliases.
+          <p>This returns all kinase entries matching your query, <b>taking into account
+              gene name and aliases.</b>
             If kinase name is unknown, you can search for part of the name or a single
             letter to return all entries featuring your query.
            From the table of results click on choosen kinase gene name to view
@@ -54,13 +55,11 @@
               <li> Inhibitor</li>
             </ul><p/>
           <img src="static\help_images\Kinase3.png" width="500" height="200">
-          <p>To explore the uniprot page for your kinase simply click on the uniprot number.<p/>
+          <p>To explore the <b>uniprot</b> page for your kinase simply click on the uniprot number.<p/>
           <img src="static\help_images\Kinase_uniprot_link.png" width="500" height="200">
-          <p>Using tabs on the results table you can explore phosphosites the kinases acts on.</p>
+          <p>Using tabs on the results table you can explore <b>phosphosites</b> the kinases acts on.</p>
           <img src="static\help_images\Kinase4.png" width="500" height="200">
-          <p>To find out more information about a substrate click on the substrate name.</p>
-
-          <p> Protein browser.<p/>
+          <p>The final tab allows you to view the Uniprot <b>protein browser</b> for that kinase.<p/>
             <img src="static\help_images\Kinase5.png" width="500" height="200">
         </tr>
     </table>
@@ -70,28 +69,28 @@
   <div class="tab-pane container active" id="INH">
     <table class="table table-hover">
         <tr>
-          <h2>Inhibitor search</h2>
-            <p> Inhibitor search page includes a table with all inhibitors.</p>
-            <img src="static\help_images\Inhib1.png" width="500" height="200">
-            <p>Typing in the search bar will condense the table to results which feature the query term only. </p>
-            <img src="static\help_images\Inhi_search2.5.5.png" width="500" height="200">
+            <h2>Inhibitor search</h2>
+              <p> Inhibitor search page includes a table with all inhibitors.</p>
+              <img src="static\help_images\Inhib1.png" width="500" height="200">
+              <p>Typing in the search bar will condense the table to results which feature the query term only. </p>
+              <img src="static\help_images\Inhi_search2.5.5.png" width="500" height="200">
 
-            <h3> Inhibitor Results</h3>
-            <p>Clicking on chosen inhibitor name, you are taken to the individual inhibitor information page where you will find the following:
-            <ul>
-              <li>Chembl ID</li>
-              <li>Molecular weight</li>
-              <li>Smiles formular</li>
-              <li>Inchi formular</li>
-              <li>An image of the inhibitor</li>
-              <li>Inhibitor aliases</li>
-              <li>Target of the inhibitor(gene name and aliases)</li>
-            </ul></p>
-            <img src="static\help_images\Inhin2.5.png" width="500" height="200">
-            <p>To explore the chemble page for your inhibitor simply click on the chembl ID</p>
-            <img src="static\help_images\Inhi_chem_link.png" width="500" height="200">
-            <p>Alternatively, from the inhibitor table you can go directly to the information page of the kinase.</p>
-            <img src="static\help_images\Inhi_target_link.png" width="500" height="200">
+              <h3> Inhibitor Results</h3>
+              <p>Clicking on chosen inhibitor name, you are taken to the individual inhibitor information page where you will find the following:
+              <ul>
+                <li>Chembl ID</li>
+                <li>Molecular weight</li>
+                <li>Smiles formular</li>
+                <li>Inchi formular</li>
+                <li>An image of the inhibitor</li>
+                <li>Inhibitor aliases</li>
+                <li>Target of the inhibitor(gene name and aliases)</li>
+              </ul></p>
+              <img src="static\help_images\Inhin2.5.png" width="500" height="200">
+              <p>To explore the <b>chEMBL</b> page for your inhibitor simply click on the chEMBL ID</p>
+              <img src="static\help_images\Inhi_chem_link.png" width="500" height="200">
+              <p>Alternatively, from the inhibitor table you can go <b>directly to the target</b> information page.</p>
+              <img src="static\help_images\Inhi_target_link.png" width="500" height="200">
         </tr>
     </table>
   </div>
@@ -120,6 +119,7 @@
                 <img src="static\help_images\Upload1.png" width="500" height="200">
                 <p>File requirments:
                   <ul>
+                    <li>The file to upload has to be a '.tsv' file</li>
                     <li>Substrate: The gene or protein name of the protein (UniProtKB entry names and gene names accepted) and phosphorylation site. The phosphorylation site must include a residue type and the numeric location. For example, “1A24_HUMAN(S359)” or “AAAS(S495)”. </li>
                     <li>Control Mean: The mean phosphopeptide MS1 Peak area in the untreated sample</li>
                     <li>Inhibitor Mean: The mean phosphopeptide MS1 peak area in the treatment sample</li>
@@ -139,20 +139,24 @@
                 <p> Coefficient of variance threshold - Filter by coefficients of variance of both treatment and control. Coefficients of variance usually fall between 0 and 2, with a CV<1 being considered low variance, and a CV>1 being considered high variance. As most CVs will fall between these values, the maximum CV the user can choose is 3.</p>
                 <p>Fold change significance threshold - The fold change threshold for significance </p>
                 <p>Minimum number of substrates for enrichment visualisation - The minimum number of substrates phosphorylated by a particular kinase.</p>
-                <img src="static\help_images\Data_file_par.png" width="400" height="200">
+                <img src="static\help_images\Data_file_par.png" width="600" height="400">
                 <h2>Data analysis</h2>
                 <p>The kinase substrate enrichment analysis(KSEA) is detailed in the applications documentation:<a class="github-button" href="https://github.com/MO105/DreamTeam" data-size="large" aria-label="Follow @PhosphoView on GitHub">Follow @PhosphoView</a>
                 </p>
                 <h2>Data Upload Results</h2>
-                <h5>Summary of Proteins in Sample</h5>
-                <p>The first graph produced shows all the data points in the sample after the empty rows and substrates without valid phosphosites are sorted out of the data set. Data points shown in green are significantly more abundant in the treatment sample compared to the control.  On the other hand, substrates with a lower abundance in the sample compared to the control are shown in red.</p>
-                <img src="static\help_images\Result_graph1.png" width="400" height="200">
-                <h5>Kinase Activity Summary</h5>
-                <p>In the second graph, each data point corresponds to a kinase and the corresponding substrate. Data points coloured green are significantly upregulated in the treatment sample compared to the control. Data points coloured red are significantly downregulated in the treatment sample compared to the control.</p>
-                <img src="static\help_images\Result_graph2.png" width="400" height="200">
+                <p>Results are displayed in a tab seperated table</p>
+                <h5>Protein summary</h5>
+                <p>This shows a graph of all the data points in the sample after the empty rows and substrates without valid phosphosites are sorted out of the data set. Data points shown in green are significantly more abundant in the treatment sample compared to the control.  On the other hand, substrates with a lower abundance in the sample compared to the control are shown in red.</p>
+                <img src="static\help_images\prot_sum.png" width="600" height="400">
+                <h5>Kinase Activity</h5>
+                <p>In this tab you will find a graph where each data point corresponds to a kinase and the corresponding substrate. Data points coloured green are significantly upregulated in the treatment sample compared to the control. Data points coloured red are significantly downregulated in the treatment sample compared to the control.</p>
+                <img src="static\help_images\kin_act.png" width="600" height="400">
                 <h5>Enrichment Plot</h5>
                 <p>This shows the Ratio of Enrichment for each kinase found in the sample. Kinases that have a negative enrichment have a lower enrichment compared to the whole dataset, and therefore have a lower relative kinase activity compared to other kinases. Kinases that have a positive enrichment have a higher enrichment compared to the whole dataset, and therefore have a higher relative kinase activity compared to other kinases.</p>
-                <img src="static\help_images\Result_graph3.png" width="400" height="200">
+                <img src="static\help_images\kin_enrich.png" width="600" height="400">
+                <h5>Kinase enrichment score data</h5>
+                <p>This table shows the kinase enrichment scores of all the kinases regardless of substrate set size.</p>
+                <img src="static\help_images\scores.png" width="500" height="300">
            </tr>
     </table>
   </div>
@@ -173,6 +177,8 @@
     </table>
   </div>
 
+  </div>
 </div>
+
 
 {% endblock content %}

@@ -20,12 +20,12 @@ pip install -r requirements.txt
 cd DreamTeam/app/
  
 Windows:
-set FLASK_APP=app.py
-flask run
+ set FLASK_APP=app.py
+ flask run
  
 Linux:
-export FLASK_APP=app.py
-flask run
+ export FLASK_APP=app.py
+ flask run
  
  
 Application runs on localhost:5000

@@ -45,47 +45,47 @@ def Data_Upload():
                     flash('Incorrect selected file', 'danger')
     return render_template('Data_Upload.html', title='Data Upload', form=form)
 
-
+#after the data is uploaded, this is the parameter page it is redirected to
 @app.route("/upload/Parameters/<filename>", methods = ['GET', 'POST'])
 def Parameter(filename):
-    form = Parameters()
-    if request.method == "POST":
-        PValue = form.PValue.data
-        Fold = form.Fold.data
-        Coeff = form.Coefficience.data
+    form = Parameters()  
+    if request.method == "POST": #if it is submitted
+        PValue = form.PValue.data  #user p-value
+        Fold = form.Fold.data    #user fold value
+        Coeff = form.Coefficience.data  #user coeff value 
+        Sub = form.Sub.data   #user number of substrates
 
-        Sub = form.Sub.data
-        if 0 <= PValue <= 0.05:
-            if 0 <= Coeff <= 3:
+        if 0 <= PValue <= 0.05:  #if the pvalue is with 0-0.05
+            if 0 <= Coeff <= 3:  # and coeff is within 0-3 , take use to Visualisation
                 return redirect(url_for('Visualisation', filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff, Sub=Sub ))
             else:
-                flash("Coefficience of Variance Threshold must be a whole number between 0 to 3", "danger")
+                flash("Coefficience of Variance Threshold must be a whole number between 0 to 3", "danger") 
 
 
         else:
             flash("P-Value Threshold must be between 0 - 0.05", "danger")
     return render_template('data_parameter.html', form=form)
 
-
+# this is the final data analysis results page 
 @app.route("/upload/Parameters/<filename>/<PValue>/<Fold>/<Coeff>/<Sub>")
 def Visualisation(filename, PValue, Fold, Coeff, Sub):
     calculations_df,df_final2,df_final3=data_analysis(filename, PValue, Coeff, Sub)
-    VolcanoPlot1 = VolcanoPlot_Sub(df_final2,PValue, Fold, Coeff)
-    VolcanoPlot2 = VolcanoPlot(df_final3, PValue, Fold,Coeff)
-    Enrichment = EnrichmentPlot(calculations_df, PValue, Fold, Coeff, Sub)
-    Calculations= df2_html(calculations_df)
+    VolcanoPlot1 = VolcanoPlot_Sub(df_final2,PValue, Fold, Coeff) #outputs one volcano plot
+    VolcanoPlot2 = VolcanoPlot(df_final3, PValue, Fold,Coeff)  #outputs another volcano plot
+    Enrichment = EnrichmentPlot(calculations_df, PValue, Fold, Coeff, Sub)  #outputs enrichment plot
+    Calculations= df2_html(calculations_df)  #outputs a table of information
     return render_template('data_analysis_results.html',filename=filename, PValue=PValue, Fold=Fold, Coeff=Coeff, Sub=Sub, VolcanoPlot1=VolcanoPlot1, VolcanoPlot2=VolcanoPlot2, Enrichment=Enrichment,Calculations=Calculations)
 
-
+#human kinase search page
 @app.route("/HumanKinases", methods = ['GET', 'POST'])
 def HumanKinases():
     form=Kinase() 
     search_kinase = form.search.data
     list_aliases = get_all_aliases() #this function returns a list of all kinase aliases
 
-    if form.validate_on_submit():
-        for x in range(len(list_aliases)):
-            if search_kinase.upper() in list_aliases[x]:
+    if form.validate_on_submit():  
+        for x in range(len(list_aliases)):  
+            if search_kinase.upper() in list_aliases[x]:  #if user input in our list, redirect to results page. 
                 return redirect(url_for('results_kinases', search_kinase=search_kinase))
 
         else:
@@ -93,21 +93,22 @@ def HumanKinases():
     
     return render_template('HumanKinases.html', title='List of Human Kinases', form=form)
       
-
+#Kinase results page 
 @app.route("/HumanKinases/results_kinases/<search_kinase>")
 def results_kinases(search_kinase):
-    dictionary = get_gene_alias_protein_name(search_kinase)
+    dictionary = get_gene_alias_protein_name(search_kinase)  #outputs a dictionary of information that matches the user input
     return render_template('results_kinases.html', dictionary=dictionary, search_kinase=search_kinase)
 
-
+#Individual kinase page from the gene link in results_kinases.html.
 @app.route("/HumanKinases/results_kinases/<search_kinase>/<gene>")
-def Individual_kinase(search_kinase,gene):
-    Information = get_gene_metadata_from_gene(gene)
+def Individual_kinase(search_kinase,gene):  
+    Information = get_gene_metadata_from_gene(gene)    
     subcellular_location = (get_subcellular_location_from_gene(gene))
     substrate_phosphosites = get_substrates_phosphosites_from_gene(gene)
     Inhibitor = get_inhibitors_from_gene(gene)
     return render_template('Individual_kinase.html', title='Individual Kinase Page', Inhibitor= Inhibitor, gene = gene, Information = Information, subcellular_location= subcellular_location, substrate_phosphosites=substrate_phosphosites)
 
+#same individual kinase page but this is from the the link in inhibitors.html page 
 @app.route("/<gene>")
 def kinase_from_inhibitor_page(gene):
     Information = get_gene_metadata_from_gene(gene)
@@ -118,7 +119,7 @@ def kinase_from_inhibitor_page(gene):
 
 
 @app.route("/Phosphosite", methods= ['GET', 'POST'])
-def Phosphosites():
+def Phosphosites():  
     Phospho_form = Phosphosite()
     Substrate_form = Substrate()
 
@@ -127,7 +128,7 @@ def Phosphosites():
     if request.method == "POST":
         if Substrate_form.validate_on_submit():
             substrate_input = Substrate_form.search.data.upper()
-            if substrate_input in get_all_substrates():
+            if substrate_input in get_all_substrates():      # if user input is found in our list of substrates, redirect to results page for substrate.
                 return redirect(url_for('results_by_substrate',substrate_input=substrate_input) )
             else:
                 flash("Not valid substrate name", "danger")
@@ -137,32 +138,34 @@ def Phosphosites():
             chr_number = Phospho_form.chromosome.data
             kar_input = Phospho_form.karyotype.data
             kar_inputs = kar_input.replace(" ", "")
-            if kar_inputs:
+            if kar_inputs:             #if there is a value in karyotype form, redirec to results page for that chromosome and karyotype
                 flash('Submitted Chromosome: '+ chr_number + ' and Karyotype '+ kar_inputs, 'info')
                 return redirect(url_for('results_phosphosite2', chr_number=chr_number,kar_inputs=kar_inputs ))
 
     return render_template('Phosphosite.html', title='Phosphosite Search', Substrate_form=Substrate_form, Phospho_form=Phospho_form)
 
-
+#this function is used in the Phosphosite search page, first the user inputs chromosome and according to that it returns the karyotype. 
 @app.route("/karyotype/<chromosome>")
 def karyotype(chromosome):
     karyotypes = get_karyotype_through_chromosome(chromosome)
     return jsonify({'karyotypes': karyotypes})
 
 
-
+#function used after user inputs valid name in the substrate search bar
 @app.route("/Phosphosite_result/<substrate_input>")
-def results_by_substrate(substrate_input):
+def results_by_substrate(substrate_input): 
     substrate_info = get_substrate_phosphosites_from_substrate(substrate_input)
     return render_template('results_phosphosite.html', substrate_info=substrate_info)
 
+#function used after user celects a chromosome and an karyotype
 @app.route("/Phosphosite_result/<chr_number>/<kar_inputs>")
 def results_phosphosite2(chr_number,kar_inputs):
     Info_by_chromosome_karyotype = get_sub_pho_from_chr_kar_loc(chr_number ,kar_inputs)
     return render_template('results_phosphosite_location.html', Info_by_chromosome_karyotype=Info_by_chromosome_karyotype,chr_number=chr_number,kar_inputs=kar_inputs )
 
+#inhibitor search page
 @app.route("/Inhibitors", methods = ['GET', 'POST'])
-def Inhibitors():
+def Inhibitors():  
     ALL_inhibitors = get_all_inhibitors_meta()
     return render_template('inhibitors.html', title='Inhibitors', ALL_inhibitors=ALL_inhibitors)
 

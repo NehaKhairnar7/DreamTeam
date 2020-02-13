@@ -303,7 +303,7 @@ def VolcanoPlot_Sub(final_substrate, p_val, FC, CV):
              SaveTool()]
     
     #make plot
-    p = figure(tools=tools,title=title, plot_width=700,plot_height=500,
+    p = figure(tools=tools,title=title, plot_width=1000,plot_height=700,
                toolbar_location='right',toolbar_sticky=False)
     
     #Add the datapoints using the colour from the dataframe and add legend w
@@ -405,7 +405,7 @@ def VolcanoPlot(df_final3, p_val, FC, CV):
              SaveTool()]
     
     #make plot
-    p = figure(tools=tools,title=title,plot_width=700,plot_height=500,
+    p = figure(tools=tools,title=title,plot_width=1000,plot_height=700,
                toolbar_location='right', toolbar_sticky=False)
    
     #add points with colours corresponding to regulation status and add 
@@ -485,11 +485,14 @@ def EnrichmentPlot(calculations_df, p_val, FC, CV, Sub):
     tools = [hover, WheelZoomTool(), PanTool(), BoxZoomTool(), ResetTool(), 
              SaveTool()]
     
+    #set length of plot by number of kinases 
+    kin_len=len(kinase)*25
+    
     #make plot
     p = figure(tools=tools, y_range=kinase, 
                x_range=((z_score.min()-5), (z_score.max()+5)), 
-               plot_width=600, plot_height=800, toolbar_location=None,
-           title="Kinase Substrate Enrichment")
+               plot_width=1000, plot_height=kin_len, toolbar_location=None,
+               title="Kinase Substrate Enrichment")
     
     #draw the bars, with the length of the bars corresponding the z scores and 
     #colour coresponding the the colour

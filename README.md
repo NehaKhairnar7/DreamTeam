@@ -11,21 +11,20 @@ http://phosphoview-docker.xfqyhkzn9j.us-east-2.elasticbeanstalk.com
 
 Running PhosphoView locally:
 
-To setup the repository create a virtual environment and install the libraries:
-
+To setup the repository create a virtual environment and install the libraries: <br />
 Git clone https://github.com/MO105/DreamTeam
  
 pip install -r requirements.txt
  
 cd DreamTeam/app/
  
-Windows:
- set FLASK_APP=app.py
- flask run
+Windows: <br />
+set FLASK_APP=app.py<br />
+flask run
  
-Linux:
- export FLASK_APP=app.py
- flask run
+Linux: <br />
+export FLASK_APP=app.py<br />
+flask run
  
  
 Application runs on localhost:5000

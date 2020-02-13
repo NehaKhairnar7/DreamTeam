@@ -40,7 +40,7 @@ class Substrate(FlaskForm):
 
 class Parameters(FlaskForm):
     PValue = DecimalField('P-Value Threshold: (0.01 - 0.05)', validators=[DataRequired(), NumberRange(min=0, max=0.05)])
-    Coefficience = DecimalField('Coefficient of Variance Threshold (0 - 3)', validators=[DataRequired(), NumberRange(min=0,max=3)])
+    Coefficience = DecimalField('Coefficient of Variance Threshold: (0 - 3)', validators=[DataRequired(), NumberRange(min=0,max=3)])
     Fold = SelectField('Fold Change Significance Threshold: (0 - 5)', choices=[('0', '0'),('1', '1'), ('2', '2'),('3', '3'),('4', '4'),('5', '5')])
-    Sub = SelectField('Minimum Number of Substrates for Enrichment Visualisation (0 - 5)', choices =[('0', '0'),('1', '1'), ('2', '2'),('3', '3'),('4', '4'),('5', '5')])
+    Sub = SelectField('Minimum Number of Substrates for Enrichment Visualisation: (0 - 5)', choices =[('0', '0'),('1', '1'), ('2', '2'),('3', '3'),('4', '4'),('5', '5')])
     submit = SubmitField('Submit')

@@ -12,6 +12,7 @@ http://phosphoview-docker.xfqyhkzn9j.us-east-2.elasticbeanstalk.com
 Running PhosphoView locally:
 
 To setup the repository create a virtual environment and install the libraries:
+
 Git clone https://github.com/MO105/DreamTeam
  
 pip install -r requirements.txt

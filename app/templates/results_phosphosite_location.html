@@ -2,18 +2,17 @@
 {% block content %}
 
 
+
 <div class ="content-section">
       
 
-
    <table class="table table-hover">
            <tr>
-            <th id="sub">Substrate Gene</th>
-            <th id="phos" >Neighbouring Sequences </th>
-            <th >Chromosomes</th>
-            <th >Karyotype Bands</th>
-            <th>Strand</th>
-            <th>Genomic coordinates</th>
+            <th >Substrate Gene</th>
+            <th >Substrate Name</th>
+            <th >Neighbouring Sequences </th>
+            <th >Phosphosite</th>
+            <th>Phosphosite Genomic Coordinates</th>
             <th >Kinases </th>
            </tr>
            <tr>
@@ -26,10 +25,9 @@
 
         {% for dict_item in Info_by_chromosome_karyotype %}
             <td headers="phos">{{ dict_item['substrate_gene'] }}</td>
+            <td headers="phos">{{ dict_item['substrate_name'] }}</td>
             <td headers="chr">{{dict_item['neighbouring sequences']}} </td>
-            <td headers="kar">{{dict_item['chromosome']}}</td>
-            <td headers="kar">{{dict_item['karyotype']}}</td>
-            <td headers="kar">{{dict_item['strand']}}</td>
+            <td headers="kar">{{dict_item['phosphosite']}}</td>
             <td headers="kar">{{dict_item['phosphosite_location']}}</td>
             <td headers="kar">{{", ".join(dict_item['kinases'])}}</td>
             </tr>

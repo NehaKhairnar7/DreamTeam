@@ -342,8 +342,8 @@ def get_sub_pho_from_chr_kar_loc(chromosome_input, karyotype_input=None):
                                                              PhosphositeMeta.karyotype_band==karyotype_input)).all()
     for phosphosite_obj in phosphosite_query:
         tmp={}
-        tmp["substrate gene"]=phosphosite_obj.substrate.substrate_gene_name
-        tmp["substrate name"]=phosphosite_obj.substrate.substrate_name
+        tmp["substrate_gene"]=phosphosite_obj.substrate.substrate_gene_name
+        tmp["substrate_name"]=phosphosite_obj.substrate.substrate_name
         tmp["substrate_url"]=phosphosite_obj.substrate.substrate_url
         tmp["phosphosite"]=phosphosite_obj.phosphosite
         tmp["phosphosite_location"]="{}:{}".format(phosphosite_obj.start_position, phosphosite_obj.end_position)

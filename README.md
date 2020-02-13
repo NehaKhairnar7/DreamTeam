@@ -9,7 +9,8 @@ To run <PhosphoView>, follow these steps:
 Website Link: 
 http://phosphoview-docker.xfqyhkzn9j.us-east-2.elasticbeanstalk.com
 
-Running PhosphoView locally    
+Running PhosphoView locally:
+
 To setup the repository create a virtual environment and install the libraries:
 Git clone https://github.com/MO105/DreamTeam
  

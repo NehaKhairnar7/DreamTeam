@@ -1,20 +1,78 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <div class ="content-section">
-    <fieldset class="form-group">
-				<legend class="border-bottom mb-4">DATA ANALYSIS</legend>
-				<P> Filename: {{filename}} </P>
-				<p> P-Value : {{PValue}}, Fold : {{Fold}} , Coefficience: {{Coeff}}, Minimum Number of Substrates: {{Sub}} </p>
+	  <fieldset class="form-group">
+  			<legend class="border-bottom mb-4">Your Phosphoproteomics Results </legend>
+
+
+
+				<P> <b> Filename</b>: {{filename}} </P>
+				<p> <b>P-Value </b>: {{PValue}} </P>
+				<p> <b>Fold </b>: {{Fold}} </P> 
+			<p><b>Coefficience</b>: {{Coeff}} </P>
+		<p><b>Minimum Number of Substrates </b>: {{Sub}} </p>
 		</fieldset> 
 
+  
+<div>
+  <ul class="nav nav-tabs nav-fill">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#BI">Protein Summary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#PS">Kinase Activity</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#GW">Kinase Substrate Enrichment</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#MM">Kinase Enrichment Score Data</a>
+  </li>
+</ul>
+<p> </p>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane container active" id="BI">
+    
 	{{VolcanoPlot1|safe}}   
 
-	{{VolcanoPlot2|safe}}         
-	
-    {{Enrichment|safe}} 
+
+
+
+  </div>
+  <div class="tab-pane container fade" id="PS">
+
+ {{VolcanoPlot2|safe}} 
+
+  </div>
+  <div class="tab-pane container fade" id="GW">
     
-    {{Calculations|safe}}           
-    </div>
+    {{Enrichment|safe}} 
+
+  </div>
+  <div class="tab-pane container fade" id="MM">
+    
+		{{Calculations|safe}}   
+
+  </div>
+          
+
+
+
+</div>
+
+				
+
+
+
+       
+	
+  
+    
+          
+ 
 
 
 {% endblock content %}}

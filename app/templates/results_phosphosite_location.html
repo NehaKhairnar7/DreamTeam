@@ -1,11 +1,48 @@
 {% extends "layout.html" %}
 {% block content %}
 
+
+
 <div class ="content-section">
-        <legend class="border-bottom mb-4"></legend>
+      
+
+   <table class="table table-hover">
+           <tr>
+            <th >Substrate Gene</th>
+            <th >Substrate Name</th>
+            <th >Neighbouring Sequences </th>
+            <th >Phosphosite</th>
+            <th>Phosphosite Genomic Coordinates</th>
+            <th >Kinases </th>
+           </tr>
+           <tr>
+           </tr>
 
 
+            <tr>
+  
+   
 
-{{Info_by_chromosome_karyotype}}
+        {% for dict_item in Info_by_chromosome_karyotype %}
+            <td headers="phos">{{ dict_item['substrate_gene'] }}</td>
+            <td headers="phos">{{ dict_item['substrate_name'] }}</td>
+            <td headers="chr">{{dict_item['neighbouring sequences']}} </td>
+            <td headers="kar">{{dict_item['phosphosite']}}</td>
+            <td headers="kar">{{dict_item['phosphosite_location']}}</td>
+            <td headers="kar">{{", ".join(dict_item['kinases'])}}</td>
+            </tr>
+   {% endfor %}
+
+
+    </table>
+
+  {% for dict_item in Info_by_chromosome_karyotype %}
+
+      <legend class="border-bottom mb-4">Genome Browser for {{ dict_item['substrate_gene'] }} </legend>
+    <iframe src="{{dict_item['substrate_url']}}"
+    width="1000" height="500" name="test1">
+    </iframe>
+
+   {% endfor %}
 
 {% endblock content %}

@@ -12,19 +12,17 @@ http://phosphoview-docker.xfqyhkzn9j.us-east-2.elasticbeanstalk.com
 To install PhosphoView, follow these steps:
 
 1. ```Git clone https://github.com/MO105/DreamTeam ```
- 
-2. ```pip install -r requirements.txt && cd DreamTeam/app/ ```
+2. ```cd DreamTeam/app ```
+3. ```pip install -r requirements.txt ```
 
 
-
-Linux and macOS:
+### Linux and macOS:
 ```
 1. export FLASK_APP=app.py
 2. flask run
-
 ```
 
-Windows:
+#### Windows:
 ```
 1. set FLASK_APP=app.py 
 2. flask run

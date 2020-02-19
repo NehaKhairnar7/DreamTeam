@@ -16,13 +16,13 @@ To install PhosphoView, follow these steps:
 3. ```pip install -r requirements.txt ```
 
 
-### Linux and macOS:
+Linux and macOS:
 ```
 1. export FLASK_APP=app.py
 2. flask run
 ```
 
-#### Windows:
+Windows:
 ```
 1. set FLASK_APP=app.py 
 2. flask run
